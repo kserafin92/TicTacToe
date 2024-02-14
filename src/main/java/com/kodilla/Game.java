@@ -2,18 +2,31 @@ package com.kodilla;
 
 import java.util.Scanner;
 
+import static com.kodilla.Move.move;
+
 class Game {
     public void play(char[][] board, char player) {
+        int movesCount = 0;
+        int maxMoves = board.length* board[0].length;
+
         while (true) {
-            System.out.println(player);
-            System.out.println("row");
-            int row = new Scanner(System.in).nextInt();
-            System.out.println("column");
-            int column = new Scanner(System.in).nextInt();
-            board[row][column] = player;
             BoardPrinter.printBoard(board);
-            player = player == 'X' ? 'O' : 'X';
+            boolean correctMove = move(board, player);
+            if (correctMove) {
+                movesCount++;
+
+                if (WinConditions.checkRow(board, player) || WinConditions.checkColumn(board, player) || WinConditions.checkCross(board, player)) {
+                    BoardPrinter.printBoard(board);
+                    System.out.println("Gracz " + player + " wygrywa!");
+                    break;
+                }
+                if (movesCount == maxMoves){
+                    BoardPrinter.printBoard(board);
+                    System.out.println("Remis!");
+                    break;
+                }
+                player = player == 'X' ? 'O' : 'X';
+            }
         }
     }
 }
-
