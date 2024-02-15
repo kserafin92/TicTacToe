@@ -1,7 +1,5 @@
 package com.kodilla;
 
-import java.util.Scanner;
-
 import static com.kodilla.Move.move;
 
 class Game {
@@ -11,7 +9,7 @@ class Game {
 
         while (true) {
             BoardPrinter.printBoard(board);
-            boolean correctMove = move(board, player);
+            boolean correctMove = move(board, 'X', 2, player);
             if (correctMove) {
                 movesCount++;
 

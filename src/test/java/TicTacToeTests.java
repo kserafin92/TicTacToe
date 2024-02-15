@@ -1,11 +1,13 @@
 
+
+import com.kodilla.Move;
 import com.kodilla.WinConditions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.NoSuchElementException;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TicTacToeTests {
 
@@ -17,7 +19,7 @@ public class TicTacToeTests {
     }
 
     @Test // Napisz testy weryfikujące zwycięstwa O w wierszach.
-    public void givenOWinsInRows_whenCheckRow_thenTrue() {
+    public void OWinsInRows() {
         // Given
         board = new char[][]{{'O', 'O', 'O'}, {'X', 'X', ' '}, {' ', ' ', 'X'}};
 
@@ -26,7 +28,7 @@ public class TicTacToeTests {
     }
 
     @Test //Napisz testy weryfikujące zwycięstwa O w kolumnach.
-    public void givenOWinsInColumns_whenCheckColumn_thenTrue() {
+    public void OWinsInColumns() {
         // Given
         board = new char[][]{{'O', 'X', 'X'}, {'O', ' ', ' '}, {'O', 'X', 'X'}};
 
@@ -35,7 +37,7 @@ public class TicTacToeTests {
     }
 
     @Test //Napisz testy weryfikujące zwycięstwa O po przekątnych planszy.
-    public void givenOWinsInCross_whenCheckCross_thenTrue() {
+    public void OWinsInCross() {
         // Given
         board = new char[][]{{'O', 'X', 'X'}, {'X', 'O', ' '}, {'X', ' ', 'O'}};
 
@@ -45,7 +47,7 @@ public class TicTacToeTests {
 
     @Test //Napisz testy weryfikujące zwycięstwa X w wierszach.
 
-    public void givenXWinsInRows_whenCheckRow_thenTrue() {
+    public void XWinsInRows() {
         // Given
         board = new char[][]{{'X', 'X', 'X'}, {'O', 'O', ' '}, {' ', ' ', 'O'}};
 
@@ -54,7 +56,7 @@ public class TicTacToeTests {
     }
 
     @Test //Napisz testy weryfikujące zwycięstwa X w kolumnach
-    public void givenXWinsInColumns_whenCheckColumn_thenTrue() {
+    public void XWinsInColumns() {
         // Given
         board = new char[][]{{'X', 'O', 'O'}, {'X', ' ', ' '}, {'X', 'O', 'O'}};
 
@@ -63,7 +65,7 @@ public class TicTacToeTests {
     }
 
     @Test //Napisz testy weryfikujące zwycięstwa X po przekątnych planszy.
-    public void givenXWinsInCross_whenCheckCross_thenTrue() {
+    public void XWinsInCross() {
         // Given
         board = new char[][]{{'X', 'O', 'O'}, {'O', 'X', ' '}, {'O', ' ', 'X'}};
 
@@ -72,7 +74,7 @@ public class TicTacToeTests {
     }
 
     @Test // Napisz testy weryfikujące układy, które prowadzą do remisu.
-    public void givenDraw_whenCheckForWinner_thenFalse() {
+    public void Draw() {
         // Given
         board = new char[][]{{'X', 'O', 'X'}, {'O', 'X', 'O'}, {'O', 'X', 'O'}};
 
@@ -85,6 +87,13 @@ public class TicTacToeTests {
         assertFalse(WinConditions.checkCross(board, 'O'));
         assertTrue(BoardIsFull.isFull(board));
     }
-    @Test // Napisz testy weryfikujące, czy w przypadku błędnie wykonanych ruchów zostanie rzucony odpowiedni wyjątek.
-??????????????????????????????????????????????????
+    // Napisz testy weryfikujące, czy w przypadku błędnie wykonanych ruchów zostanie rzucony odpowiedni wyjątek.
+    @Test
+    public void InvalidMove() {
+        // Given
+        char[][] board = {{'X', 'O', 'X'}, {'O', 'X', 'O'}, {'O', 'X', 'O'}};
+
+        // When-Then
+        assertThrows(NoSuchElementException.class, () -> Move.move(board, 'X', 2, '1'));
+    }
 }
