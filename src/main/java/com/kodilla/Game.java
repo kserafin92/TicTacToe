@@ -18,19 +18,24 @@ public class Game {
             boolean correctMove = move(board, player);
             if (correctMove) {
                 movesCount++;
-                if (WinConditions.checkRow(board, player) || WinConditions.checkColumn(board, player) || WinConditions.checkCross(board, player)) {
-                    BoardPrinter.printBoard(board);
-                    System.out.println("Gracz " + player + " wygrywa!");
-                    break;
-                }
-                if (movesCount == maxMoves) {
-                    BoardPrinter.printBoard(board);
-                    System.out.println("Remis!");
-                    break;
-                }
+                if (checkWhoWins(board, player, movesCount, maxMoves)) break;
                 player = player == 'X' ? 'O' : 'X';
             }
         }
+    }
+
+    private boolean checkWhoWins(char[][] board, char player, int movesCount, int maxMoves) {
+        if (WinConditions.checkRow(board, player) || WinConditions.checkColumn(board, player) || WinConditions.checkCross(board, player)) {
+            BoardPrinter.printBoard(board);
+            System.out.println("Gracz " + player + " wygrywa!");
+            return true;
+        }
+        if (movesCount == maxMoves) {
+            BoardPrinter.printBoard(board);
+            System.out.println("Remis!");
+            return true;
+        }
+        return false;
     }
 
     public void playWithComputer(char[][] board, char player) {
@@ -48,17 +53,7 @@ public class Game {
                 movesCount++;
             }
 
-            if (WinConditions.checkRow(board, player) || WinConditions.checkColumn(board, player) || WinConditions.checkCross(board, player)) {
-                BoardPrinter.printBoard(board);
-                System.out.println("Gracz " + player + " wygrywa!");
-                break;
-            }
-
-            if (movesCount == maxMoves) {
-                BoardPrinter.printBoard(board);
-                System.out.println("Remis!");
-                break;
-            }
+            if (checkWhoWins(board, player, movesCount, maxMoves)) break;
 
             if (player == 'X') {
                 player = computerPlayer;
