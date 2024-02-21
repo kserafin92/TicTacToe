@@ -1,12 +1,16 @@
 package com.kodilla;
 
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Game {
     private final Scanner scanner;
+    private final int winCondition;
 
-    public Game() {
-        scanner = new Scanner(System.in);
+    public Game(int winCondition) {
+
+        this.scanner = new Scanner(System.in);
+        this.winCondition = winCondition;
     }
 
     public void playWithHuman(char[][] board, char player) {
@@ -25,7 +29,9 @@ public class Game {
     }
 
     private boolean checkWhoWins(char[][] board, char player, int movesCount, int maxMoves) {
-        if (WinConditions.checkRow(board, player) || WinConditions.checkColumn(board, player) || WinConditions.checkCross(board, player)) {
+        if (WinConditions.checkRow(board, player, winCondition) ||
+                WinConditions.checkColumn(board, player, winCondition) ||
+                WinConditions.checkDiagonal(board, player, winCondition)) {
             BoardPrinter.printBoard(board);
             System.out.println("Gracz " + player + " wygrywa!");
             return true;
@@ -68,16 +74,16 @@ public class Game {
         System.out.println("Podaj wiersz:");
         int row = scanner.nextInt();
         System.out.println("Podaj kolumnę:");
-        int column = scanner.nextInt();
+        int col = scanner.nextInt();
 
-        if (row >= 0 && row < board.length && column >= 0 && column < board[0].length && board[row][column] == ' ') {
-            board[row][column] = player;
+        if (row >= 0 && row < board.length && col >= 0 && col < board[0].length && board[row][col] == ' ') {
+            throw new NoSuchElementException("Ruch niepoprawny. To pole jest już zajęte.");
+        }
+            board[row][col] = player;
             return true;
-        } else {
-            System.out.println("Niepoprawny ruch. Pole zajęte lub poza zakresem.");
-            return false;
+
         }
     }
-}
+
 
 

@@ -13,10 +13,25 @@ public class TicTacToeApp {
         System.out.println("2-Gra z komputerem");
         int gameMode = scanner.nextInt();
 
+        System.out.println("Wybierz rozmiar planszy:");
+        System.out.println("1-Standardowa plansza 3x3");
+        System.out.println("2- plansza 10x10");
+
+        int boardSizeOption = scanner.nextInt();
+        int size;
+        int winCondition;
+
+        if (boardSizeOption == 2) {
+            size = 10;
+            winCondition = 5;
+        } else {
+            size = 3;
+            winCondition = 3;
+        }
+
 
         char player = 'X';
 
-        int size = 3;
         char[][] board = new char[size][size];
 
         for(int i=0; i<size; i++) {
@@ -26,7 +41,7 @@ public class TicTacToeApp {
         }
 
 
-        Game ticTacToeGame = new Game();
+        Game ticTacToeGame = new Game(winCondition);
 
         if (gameMode == 1) {
             ticTacToeGame.playWithHuman(board, player);
@@ -34,8 +49,6 @@ public class TicTacToeApp {
             ticTacToeGame.playWithComputer(board, player);
         } else {
             System.out.println("Nieprawidłowy wybór. Zakończenie gry.");
-            return;
-
 
         }
     }

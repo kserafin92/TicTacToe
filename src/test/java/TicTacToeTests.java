@@ -1,6 +1,5 @@
 
 
-import com.kodilla.Move;
 import com.kodilla.WinConditions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
