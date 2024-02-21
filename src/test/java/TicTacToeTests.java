@@ -87,8 +87,8 @@ public class TicTacToeTests {
         assertFalse(WinConditions.checkCross(board, 'O'));
         assertTrue(BoardIsFull.isFull(board));
     }
-    // Napisz testy weryfikujące, czy w przypadku błędnie wykonanych ruchów zostanie rzucony odpowiedni wyjątek.
-    @Test
+
+    @Test // Napisz testy weryfikujące, czy w przypadku błędnie wykonanych ruchów zostanie rzucony odpowiedni wyjątek.
     public void InvalidMove() {
         // Given
         char[][] board = {{'X', 'O', 'X'}, {'O', 'X', 'O'}, {'O', 'X', 'O'}};
