@@ -2,22 +2,31 @@ package com.kodilla;
 
 
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
 public class TicTacToeApp {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Wybierz tryb gry");
-        System.out.println("1-Gra z innym graczem");
-        System.out.println("2-Gra z komputerem");
-        int gameMode = scanner.nextInt();
+        int boardSizeOption;
+        int gameMode;
 
-        System.out.println("Wybierz rozmiar planszy:");
-        System.out.println("1-Standardowa plansza 3x3");
-        System.out.println("2- plansza 10x10");
 
-        int boardSizeOption = scanner.nextInt();
+       try {
+           System.out.println("Wybierz tryb gry");
+           System.out.println("1-Gra z innym graczem");
+           System.out.println("2-Gra z komputerem");
+           gameMode = scanner.nextInt();
+
+           System.out.println("Wybierz rozmiar planszy:");
+           System.out.println("1-Standardowa plansza 3x3");
+           System.out.println("2- plansza 10x10");
+           boardSizeOption = scanner.nextInt();
+       } catch (InputMismatchException e) {
+           System.out.println("Wprowadzono nieprawidłowe dane. Zakończenie gry");
+           return;
+       }
         int size;
         int winCondition;
 

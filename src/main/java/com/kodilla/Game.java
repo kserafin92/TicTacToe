@@ -1,5 +1,6 @@
 package com.kodilla;
 
+import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -71,10 +72,19 @@ public class Game {
 
     private boolean move(char[][] board, char player) {
         System.out.println("Ruch gracza " + player);
-        System.out.println("Podaj wiersz:");
-        int row = scanner.nextInt();
-        System.out.println("Podaj kolumnę:");
-        int col = scanner.nextInt();
+        int row;
+        int col;
+
+
+        try {
+            System.out.println("Podaj wiersz:");
+            row = scanner.nextInt();
+            System.out.println("Podaj kolumnę:");
+            col = scanner.nextInt();
+        } catch(InputMismatchException e) {
+            System.out.println("wprowadzono nieprawidłowe dane. Spróbuj jeszcze raz");
+            return false;
+        }
 
         if (row >= 0 && row < board.length && col >= 0 && col < board[0].length && board[row][col] == ' ') {
             throw new NoSuchElementException("Ruch niepoprawny. To pole jest już zajęte.");
