@@ -70,30 +70,51 @@ public class Game {
         }
     }
 
-    private boolean move(char[][] board, char player) {
+    public boolean move(char[][] board, char player) {
         System.out.println("Ruch gracza " + player);
         int row;
         int col;
 
 
         try {
-            System.out.println("Podaj wiersz:");
-            row = scanner.nextInt();
-            System.out.println("Podaj kolumnę:");
-            col = scanner.nextInt();
-        } catch(InputMismatchException e) {
+            System.out.println("Podaj wiersz i kolumnę oddzielone przecinkiem:");
+            String line = scanner.nextLine(); //0,1
+            String[] splitValues = line.split(",");
+
+            if(splitValues.length !=2) {
+                throw new IllegalArgumentException();
+            }
+
+            row = Integer.parseInt(splitValues[0].trim());
+            col = Integer.parseInt(splitValues[1].trim());
+
+        } catch(Exception e) {
             System.out.println("wprowadzono nieprawidłowe dane. Spróbuj jeszcze raz");
-            return false;
+            scanner.nextLine();
+            return move(board, player);
         }
 
-        if (row >= 0 && row < board.length && col >= 0 && col < board[0].length && board[row][col] == ' ') {
-            throw new NoSuchElementException("Ruch niepoprawny. To pole jest już zajęte.");
+        if (IsAlreadyTaken(board, row, col)) {
+            System.out.println("Ruch niepoprawny. To pole jest już zajęte.");
+            return move(board, player);
+        }
+        if(isOutOfBounds(board, row, col)){
+            System.out.println("Wartość nie powinna wykraczać powyżej " + (board.length-1));
+            return move(board, player);
         }
             board[row][col] = player;
             return true;
 
         }
+
+    private boolean isOutOfBounds(char[][] board, int row, int col) {
+        return row >= board.length || col >= board.length;
     }
+
+    private boolean IsAlreadyTaken(char[][] board, int row, int col) {
+        return row >= 0 && row < board.length && col >= 0 && col < board[0].length && board[row][col] != ' ';
+    }
+}
 
 
 
